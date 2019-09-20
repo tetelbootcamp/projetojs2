@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  postgres:
+    image: "postgres:9.5"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  modulo2:
+    depends_on:
+      - "postgres"
+    build: .
+    ports:
+      - "3000:3000"
+    command: yarn start
+    volumes:
+      - .:/modulo2
+
+volumes:
+  postgres:
