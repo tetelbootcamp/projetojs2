@@ -2,9 +2,7 @@ FROM node:10
 
 # Instala nossas dependencias
 RUN apt-get update && apt-get install -qq -y --no-install-recommends \
-    nodejs yarn build-essential libpq-dev imagemagick git-all nano
-
-RUN npm install
+    yarn build-essential libpq-dev imagemagick git-all nano
 
 # Seta nosso path
 ENV INSTALL_PATH /modulo2
@@ -14,6 +12,11 @@ RUN mkdir -p $INSTALL_PATH
 
 # Seta nosso path como o diretório principal
 WORKDIR $INSTALL_PATH
+
+COPY package*.json ./
+
+RUN npm install
+
 COPY . ./
 
 EXPOSE 3000
